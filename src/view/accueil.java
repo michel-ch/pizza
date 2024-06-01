@@ -52,10 +52,9 @@ public class accueil {
 		frame.getContentPane().setBackground(new Color(70, 114, 196));
 		frame.getContentPane().setForeground(new Color(70, 114, 196));
 		frame.getContentPane().setLayout(null);
-		frame.setBounds(100, 100, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JList list = new JList();
+		list.setForeground(new Color(70, 114, 196));
 		list.setBounds(565, 61, 281, 462);
 		frame.getContentPane().add(list);
 		
@@ -137,7 +136,7 @@ public class accueil {
 		frame.getContentPane().add(lblNewLabel);
 		
 		
-		
-		
+		frame.setBounds(100, 100, 900, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
