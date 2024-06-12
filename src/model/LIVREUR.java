@@ -4,17 +4,17 @@ import java.sql.Time;
 import java.util.ArrayList;
 
 public class LIVREUR {
-	private int id;
+	private String id;
 	private String nom;
 	private String prenom;
 	private String numeroTelephone;
-	private Time retardEffectue;
+	private int nombreRetard;
 	private ArrayList <COMMANDE> listecommandes;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNom() {
@@ -35,23 +35,23 @@ public class LIVREUR {
 	public void setNumeroTelephone(String numeroTelephone) {
 		this.numeroTelephone = numeroTelephone;
 	}
-	public Time getRetardEffectue() {
-		return retardEffectue;
+	public int getNombreRetard() {
+		return nombreRetard;
 	}
-	public void setRetardEffectue(Time retardEffectue) {
-		this.retardEffectue = retardEffectue;
+	public void setNombreRetard(int nombreRetard) {
+		this.nombreRetard = nombreRetard;
 	}
 	
-	public LIVREUR(int id, String nom, String prenom, String numeroTelephone, Time retardEffectue) {
+	public LIVREUR(String id, String nom, String prenom, String numeroTelephone, int nombreRetard) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.numeroTelephone = numeroTelephone;
-		this.retardEffectue = retardEffectue;
+		this.nombreRetard = nombreRetard;
 		listecommandes = new ArrayList<COMMANDE>();
 	}
-	public LIVREUR(int id, String nom, String prenom, String numeroTelephone) {
+	public LIVREUR(String id, String nom, String prenom, String numeroTelephone) {
 		super();
 		this.id = id;
 		this.nom = nom;

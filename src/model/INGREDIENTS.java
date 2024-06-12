@@ -1,13 +1,14 @@
 package model;
 
 public class INGREDIENTS {
-	private int id;
+	private String id;
 	private String nom;
-	
-	public int getId() {
+    private int nombreUtilisations;
+
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNom() {
@@ -16,11 +17,23 @@ public class INGREDIENTS {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
-	public INGREDIENTS(int id, String nom) {
+	public int getNombreUtilisations() {
+        return nombreUtilisations;
+    }
+
+    public void setNombreUtilisations(int nombreUtilisations) {
+        this.nombreUtilisations = nombreUtilisations;
+    }
+	public INGREDIENTS(String id, String nom) {
 		super();
 		this.id = id;
 		this.nom = nom;
 	}
+	
+	public INGREDIENTS(String nom, int nombreUtilisations) {
+		super();
+        this.nom = nom;
+        this.nombreUtilisations = nombreUtilisations;
+    }
 	
 }

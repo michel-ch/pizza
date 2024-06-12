@@ -25,10 +25,10 @@ public class model {
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
 		
-		String BDD = "pizza";
-		String url = "jdbc:mysql://localhost:3306/" + BDD;
+		String BDD = "rapizz";
+		String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
 		String user = "root";
-		String passwd = "";
+		String passwd = "manardehmani2003";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -113,6 +113,139 @@ public class model {
 		
 	}
 	
+	// 
+    public double chiffreAffaires() {
+        double result = 0.0;
+        String requete = "CALL chiffreAffaires()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                result = rs.getDouble("chiffre_affaires");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    
+    //
+    public CLIENT meilleurClient() {
+        CLIENT client = null;
+        String requete = "CALL meilleurClient()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                client = new CLIENT(rs.getInt("idClient"), rs.getString("nomClient"), 
+                		rs.getString("prenomClient"),rs.getString("adresseClient"),
+                		rs.getString("emailClient"),rs.getString("numeroTelephoneClient"),
+                		rs.getFloat("SoldeCompte"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return client;
+    }
+    //
+    public PIZZA pizzaPlusDemandee() {
+        PIZZA pizza = null;
+        String requete = "CALL PizzaPlusDemandee()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                pizza = new PIZZA(rs.getString("idPizza"), rs.getString("idTypePizza"),rs.getFloat("PrixPizza"), rs.getString("idTaille"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pizza;
+    }
+    
+    //
+    public PIZZA pizzaMoinsDemandee() {
+        PIZZA pizza = null;
+        String requete = "CALL PizzaMoinsDemandee()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                pizza = new PIZZA(rs.getString("idPizza"), rs.getString("idTypePizza"),rs.getFloat("PrixPizza"), rs.getString("idTaille"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pizza;
+    }
+    
+    //
+    public INGREDIENTS ingredientFavori() {
+        INGREDIENTS ingredient = null;
+        String requete = "CALL ingredientFavori()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                ingredient = new INGREDIENTS(rs.getString("nomIngredient"), rs.getInt("nombreUtilisations"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ingredient;
+    }
+    
+    //
+    
+    public ArrayList<VEHICULE> vehiculeNonUtilise() {
+    	ArrayList<VEHICULE>  vehicules = getListevehicule();
+        String requete = "CALL vehiculeNonUtilise()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            while (rs.next()) {
+                VEHICULE vehicule = new VEHICULE(rs.getString("numImmVehicule"), rs.getString("typeVehicule"));
+                vehicules.add(vehicule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehicules;
+    }
+    
+    //
+    public LIVREUR plusMauvaisLivreur() {
+        LIVREUR livreur = null;
+        String requete = "CALL PlusMauvaisLivreur()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            if (rs.next()) {
+                livreur = new LIVREUR(
+                    rs.getString("idLivreur"),
+                    rs.getString("nomLivreur"),
+                    rs.getString("prenomLivreur"),
+                    rs.getString("numeroTelephoneLivreur"),
+                    rs.getInt("nbRetard")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return livreur;
+    }
+    
+    public ArrayList<String> menu() {
+        ArrayList<String> menuItems = new ArrayList<>();
+        String requete = "CALL menu()";
+        try (Statement stmt = con.createStatement()) {
+            ResultSet rs = stmt.executeQuery(requete);
+            while (rs.next()) {
+                String menuItem = rs.getString("nomPizza") + " - " + rs.getDouble("PrixPizza") + "€ - Ingrédients: " + rs.getString("ingredients");
+                menuItems.add(menuItem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return menuItems;
+    }
+
+    
+    
+    
 	public CLIENT findclient(int id)
 	{
 		for(int i=0;i<listeclient.size();i++)
@@ -124,11 +257,11 @@ public class model {
 		}
 		return null;
 	}
-	public LIVREUR findlivreur(int id)
+	public LIVREUR findlivreur(String id)
 	{
 		for(int i=0;i<listelivreur.size();i++)
 		{
-			if(listelivreur.get(i).getId() == id)
+			if(listelivreur.get(i).getId().equals(id))
 			{
 				return listelivreur.get(i);
 			}
@@ -158,11 +291,11 @@ public class model {
 		return null;
 	}
 	
-	public INGREDIENTS findingredient(int id)
+	public INGREDIENTS findingredient(String id)
 	{
 		for(int i=0;i<listeingredients.size();i++)
 		{
-			if(listeingredients.get(i).getId() == id)
+			if(listeingredients.get(i).getId().equals(id))
 			{
 				return listeingredients.get(i);
 			}

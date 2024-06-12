@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -12,10 +13,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 
+import model.model;
+
 public class menu {
 
 	private JFrame frame;
 	private JTable table;
+	private model monModel;
 
 	/**
 	 * Launch the application.
@@ -37,6 +41,7 @@ public class menu {
 	 * Create the application.
 	 */
 	public menu() {
+		monModel = new model();
 		initialize();
 	}
 
@@ -85,7 +90,7 @@ public class menu {
 		menu3.setForeground(new Color(70, 114, 196));
 		menu3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+			
 			}
 		});
 		menu3.setBounds(58, 365, 165, 99);

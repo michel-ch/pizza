@@ -9,11 +9,21 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import model.model;
+import model.CLIENT;
+import model.LIVREUR;
+import model.VEHICULE;
+import model.PIZZA;
+import model.INGREDIENTS;
+import model.COMMANDE;
+
 
 public class info {
 
 	private JFrame frame;
+	private model monModel;
 
 	/**
 	 * Launch the application.
@@ -35,6 +45,7 @@ public class info {
 	 * Create the application.
 	 */
 	public info() {
+		monModel = new model();
 		initialize();
 	}
 
@@ -88,6 +99,12 @@ public class info {
 		meilleurClient.setFont(new Font("Arial", Font.PLAIN, 16));
 		meilleurClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CLIENT client = monModel.meilleurClient();
+                if (client != null) {
+                    affichage.setText("Meilleur client: " + client.getNom() + " " + client.getPrenom());
+                } else {
+                    affichage.setText("Aucun client trouvé.");
+                }
 				
 			}
 		});
@@ -100,7 +117,14 @@ public class info {
 		mauvaisLivreur.setBackground(new Color(255, 255, 255));
 		mauvaisLivreur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				LIVREUR livreur = monModel.plusMauvaisLivreur();
+                if (livreur != null) {
+                	affichage.setText("Mauvais livreur : " + livreur.getNom() + " " + livreur.getPrenom() + 
+                            " (ID : " + livreur.getId() + ", Téléphone : " + livreur.getNumeroTelephone() + 
+                            ") avec " + livreur.getNombreRetard() + " retards.");
+                } else {
+                    affichage.setText("Aucun livreur trouvé.");
+                }
 			}
 		});
 		mauvaisLivreur.setBounds(122, 308, 230, 75);
@@ -124,7 +148,12 @@ public class info {
 		ingredientFavori.setBackground(new Color(255, 255, 255));
 		ingredientFavori.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				INGREDIENTS ingredient = monModel.ingredientFavori();
+                if (ingredient != null) {
+                    affichage.setText("<html>Ingrédient favori est : " + ingredient.getNom() + "<br/>Nombre d'utilisation de l'ingrédient est : " + ingredient.getNombreUtilisations() + "</html>");
+                } else {
+                    affichage.setText("Aucun ingrédient trouvé.");
+                }
 			}
 		});
 		ingredientFavori.setBounds(414, 432, 230, 75);
@@ -136,6 +165,17 @@ public class info {
 		vehiculeLibre.setBackground(new Color(255, 255, 255));
 		vehiculeLibre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ArrayList<VEHICULE> vehicules = monModel.vehiculeNonUtilise();
+                if (!vehicules.isEmpty()) {
+                    StringBuilder sb = new StringBuilder("Véhicules non utilisés : ");
+                    for (VEHICULE vehicule : vehicules) {
+                        sb.append(vehicule.getNum()).append(" (").append(vehicule.getType()).append("), ");
+                    }
+                    affichage.setText("<html>" + sb.toString().replaceAll(", $", "") + "</html>");
+                } else {
+                    affichage.setText("Aucun véhicule non utilisé.");
+                }
+
 				
 			}
 		});
