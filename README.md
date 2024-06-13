@@ -2,7 +2,7 @@
 ### PIZZA JAVA PROJECT
 
 
-To test it yourself :
+# To test it yourself :
 
   - Create a database named "pizza"
   - Load the SQL to create the Database [Database](https://github.com/michel-ch/pizza/blob/main/DataBase/create_table.sql)
