@@ -244,8 +244,6 @@ public class model {
     }
 
     
-    
-    
 	public CLIENT findclient(int id)
 	{
 		for(int i=0;i<listeclient.size();i++)
