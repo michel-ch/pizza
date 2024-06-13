@@ -14,6 +14,7 @@ public class main {
 	}
 	
 	public static void main(String[] args) throws SQLException{
+		System.out.println("main");
 		
 		m = new model();
 		m.getAll();

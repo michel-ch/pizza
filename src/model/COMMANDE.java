@@ -7,6 +7,7 @@ public class COMMANDE {
 	private Date date;
 	private String statut;
 	private String adresse;
+	private Date temps;
 	private LIVREUR livreur;
 	private CLIENT client;
 	private PIZZA pizza;
@@ -16,6 +17,12 @@ public class COMMANDE {
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public Date getTemps() {
+		return temps;
+	}
+	public void setTemps(Date temps) {
+		this.temps = temps;
 	}
 	public Date getDate() {
 		return date;
@@ -53,8 +60,20 @@ public class COMMANDE {
 	public void setPizza(PIZZA pizza) {
 		this.pizza = pizza;
 	}
-	
-	public COMMANDE(int num, Date date, String statut, String adresse, LIVREUR livreur, CLIENT client, PIZZA pizza) {
+	public COMMANDE(int num, Date date, String statut, String adresse, Date temps, LIVREUR livreur, CLIENT client,
+			PIZZA pizza) {
+		super();
+		this.num = num;
+		this.date = date;
+		this.statut = statut;
+		this.adresse = adresse;
+		this.temps = temps;
+		this.livreur = livreur;
+		this.client = client;
+		this.pizza = pizza;
+	}
+	public COMMANDE(int num, Date date, String statut, String adresse, LIVREUR livreur, CLIENT client,
+			PIZZA pizza) {
 		super();
 		this.num = num;
 		this.date = date;
@@ -62,7 +81,5 @@ public class COMMANDE {
 		this.adresse = adresse;
 		this.livreur = livreur;
 		this.client = client;
-		this.pizza = pizza;
 	}
-	
 }

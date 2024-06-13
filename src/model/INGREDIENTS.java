@@ -29,11 +29,17 @@ public class INGREDIENTS {
 		this.id = id;
 		this.nom = nom;
 	}
-	
 	public INGREDIENTS(String nom, int nombreUtilisations) {
 		super();
+		this.nom = nom;
+		this.nombreUtilisations = nombreUtilisations;
+	}
+	public INGREDIENTS(String id, String nom, int nombreUtilisations) {
+		super();
+		this.id = id;
         this.nom = nom;
         this.nombreUtilisations = nombreUtilisations;
     }
+	
 	
 }

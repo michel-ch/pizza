@@ -47,6 +47,7 @@ public class info {
 	public info() {
 		monModel = new model();
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class info {
 		JButton precedent = new JButton("Precedent");
 		precedent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
 			}
 		});
 		precedent.setHorizontalAlignment(SwingConstants.CENTER);

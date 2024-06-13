@@ -45,6 +45,7 @@ public class infoclient {
 	 */
 	public infoclient() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class infoclient {
 		JButton precedent = new JButton("Precedent");
 		precedent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
 			}
 		});
 		precedent.setHorizontalAlignment(SwingConstants.CENTER);
