@@ -86,6 +86,14 @@ public class  CLIENT{
 		this.numeroTelephone = numeroTelephone;
 	}
 	
+	public CLIENT(int id, String nom, String prenom) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+
+	}
+	
 	public void ajouterCommande(COMMANDE commande) {
 		listecommandes.add(commande);
 	}

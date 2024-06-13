@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,6 +19,9 @@ import model.VEHICULE;
 import model.PIZZA;
 import model.INGREDIENTS;
 import model.COMMANDE;
+import model.TYPEPIZZA;
+import model.TAILLE;
+
 
 
 public class info {
@@ -88,7 +92,8 @@ public class info {
 		ca.setBackground(new Color(255, 255, 255));
 		ca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				double chiffreAffaires = monModel.chiffreAffaires();
+                affichage.setText("Chiffre d'affaires de la pizzeria est : " + chiffreAffaires + " €");
 			}
 		});
 		ca.setBounds(122, 184, 230, 75);
@@ -131,13 +136,21 @@ public class info {
 		mauvaisLivreur.setBounds(122, 308, 230, 75);
 		frame.getContentPane().add(mauvaisLivreur);
 		
-		JButton pizzaFavori = new JButton("Pizza la plus demandee");
+		JButton pizzaFavori = new JButton("Pizza la plus demandée");
 		pizzaFavori.setForeground(new Color(70, 114, 196));
 		pizzaFavori.setFont(new Font("Arial", Font.PLAIN, 16));
 		pizzaFavori.setBackground(new Color(255, 255, 255));
 		pizzaFavori.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				PIZZA pizza = monModel.pizzaPlusDemandee();
+                if (pizza != null) {
+                    affichage.setText("<html>Pizza la plus demandée : " + pizza.getNom() +
+                                      "<br/>Type : " + pizza.getId() +
+                                      "<br/>Prix : " + pizza.getPrix() + "€" +
+                                      "<br/>Taille : " + pizza.getTaille() + "</html>");
+                } else {
+                    affichage.setText("Aucune pizza trouvée.");
+                }
 			}
 		});
 		pizzaFavori.setBounds(414, 308, 230, 75);

@@ -25,10 +25,10 @@ public class model {
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
 		
-		String BDD = "pizza";
-		String url = "jdbc:mysql://localhost:3306/"+BDD;
+		//String BDD = "rapizz";
+		String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
 		String user = "root";
-		String passwd = "";
+		String passwd = "manardehmani2003";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -136,9 +136,7 @@ public class model {
             ResultSet rs = stmt.executeQuery(requete);
             if (rs.next()) {
                 client = new CLIENT(rs.getInt("idClient"), rs.getString("nomClient"), 
-                		rs.getString("prenomClient"),rs.getString("adresseClient"),
-                		rs.getString("emailClient"),rs.getString("numeroTelephoneClient"),
-                		rs.getFloat("SoldeCompte"));
+                		rs.getString("prenomClient"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,32 +146,23 @@ public class model {
     //
     public PIZZA pizzaPlusDemandee() {
         PIZZA pizza = null;
-        String requete = "CALL PizzaPlusDemandee()";
+        String requete = "CALL PizzaPlusdemandee()";
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(requete);
             if (rs.next()) {
-                pizza = new PIZZA(rs.getString("idPizza"), rs.getString("idTypePizza"),rs.getFloat("PrixPizza"), rs.getString("idTaille"));
+                pizza = new PIZZA(
+                    rs.getString("idPizza"),
+                    rs.getString("nomPizza"),
+                    rs.getFloat("PrixPizza"),
+                    rs.getString("taille")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return pizza;
     }
-    
-    //
-    public PIZZA pizzaMoinsDemandee() {
-        PIZZA pizza = null;
-        String requete = "CALL PizzaMoinsDemandee()";
-        try (Statement stmt = con.createStatement()) {
-            ResultSet rs = stmt.executeQuery(requete);
-            if (rs.next()) {
-                pizza = new PIZZA(rs.getString("idPizza"), rs.getString("idTypePizza"),rs.getFloat("PrixPizza"), rs.getString("idTaille"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return pizza;
-    }
+
     
     //
     public INGREDIENTS ingredientFavori() {
