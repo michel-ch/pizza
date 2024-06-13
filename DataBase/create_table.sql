@@ -2,7 +2,7 @@ create database if not exists pizza ;
 use pizza ;
 
 CREATE TABLE TypePizza(
-   idTypePizza VARCHAR(15),
+   idTypePizza VARCHAR(50),
    nomPizza VARCHAR(20) NOT NULL,
    prixBase DECIMAL(5,2) NOT NULL,
    PRIMARY KEY(idTypePizza)
