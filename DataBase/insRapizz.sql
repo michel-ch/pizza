@@ -79,6 +79,17 @@ INSERT INTO Client (idClient, nomClient, prenomClient, adresseClient, emailClien
 (8, 'Poiteaux', 'Justine', '2 Rue de la mairie', 'justine.poiteaux@gmail.com', '0647214300', 0.00),
 (9, 'Robert', 'Martine', '35 Avenue Artiside Briand', 'martine.robert@gmail.com', '0725543210', 43.15);
 
+-- Insertion dans la table Pizza
+INSERT INTO Pizza (idPizza, PrixPizza, idTypePizza, idTaille)
+VALUES
+('Type1T1', 9.50, 'Type1', 'T1'),
+('Type1T2', 6.65, 'Type1', 'T2'),
+('Type2T2', 7.53, 'Type2', 'T2'),
+('Type3T3', 16.06, 'Type3', 'T3'),
+('Type4T2', 17.94, 'Type4', 'T2'),
+('Type5T1', 10.99, 'Type5', 'T1'),
+('Type6T3', 14.29, 'Type6', 'T3');
+
 -- Insertion des commandes dans la table Commande
 -- Insérer les commandes en vérifiant les règles des triggers
 INSERT INTO Commande (numCommande, dateCommande, statutCommande, adresseLivraison, tempsDeLivraison, idPizza, idLivreur, idClient) 
@@ -90,7 +101,7 @@ VALUES
 (5, '2024-06-13 14:30:00', 'Livrée', '35 Rue Maurice Bécanne', '00:25:00', 'Type5T1', 'Livreur5', 1),
 (6, '2024-06-13 15:00:00', 'Livrée', '4 Avue du Régiment', '00:30:00', 'Type6T3', 'Livreur6', 2),
 (7, '2024-06-13 15:30:00', 'Annulée', '2 Rue de la mairie', '00:00:00', 'Type1T1', 'Livreur7', 8),  
-(8, '2024-06-13 16:00:00', 'Offerte', '35 Avenue Artiside Briand', '00:50:00', 'Type2T2', 'Livreur1', 9),  
+(8, '2024-06-13 16:00:00', 'Offerte', '35 Avenue Artiside Briand', '00:50:00', 'Type2T2', 'Livreur1', 9), 
 (9, '2024-06-13 16:30:00', 'Livrée', '35 Avenue Artiside Briand', '00:30:00', 'Type3T3', 'Livreur2', 9),
 (10, '2024-06-13 17:00:00', 'En cours', '35 Avenue Artiside Briand', '00:45:00', 'Type4T2', 'Livreur3', 9),
 (11, '2024-06-13 17:30:00', 'En cours', '4 Avenue de Buisson', '00:10:00', 'Type5T1', 'Livreur4', 3),  

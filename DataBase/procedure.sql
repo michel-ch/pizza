@@ -236,3 +236,12 @@ HAVING SUM(P.PrixPizza) > (SELECT moyenne FROM moyenne_prix_commandes);
 
 DELIMITER ;
 
+DELIMITER //
+CREATE PROCEDURE chiffreAffaires()
+BEGIN
+    SELECT SUM(PrixPizza) AS chiffre_affaires
+    FROM Commande
+    JOIN Pizza ON Commande.idPizza = Pizza.idPizza
+    WHERE statutCommande = 'Livrée';
+END //
+DELIMITER ;
