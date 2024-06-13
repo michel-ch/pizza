@@ -1,8 +1,8 @@
-create database if not exists pizza ;
-use pizza ;
+create database if not exists Rapizz ;
+use Rapizz ;
 
 CREATE TABLE TypePizza(
-   idTypePizza VARCHAR(50),
+   idTypePizza VARCHAR(15),
    nomPizza VARCHAR(20) NOT NULL,
    prixBase DECIMAL(5,2) NOT NULL,
    PRIMARY KEY(idTypePizza)
@@ -87,3 +87,8 @@ CREATE TABLE SeCompose(
    FOREIGN KEY(idTypePizza) REFERENCES TypePizza(idTypePizza),
    FOREIGN KEY(idIngredient) REFERENCES Ingredients(idIngredient)
 );
+
+
+
+
+

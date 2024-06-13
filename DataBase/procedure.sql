@@ -2,6 +2,7 @@
 et en même temps elle calcule le prix de pizza selon sa taille et son type 
 et stocke automatiquement toutes les combinaisons possibles dans la table pizza*/
 DELIMITER //
+
 CREATE PROCEDURE insertTypePizza (
     IN p_idTypePizza VARCHAR(15),
     IN p_nomPizza VARCHAR(20),
@@ -39,6 +40,9 @@ BEGIN
         -- On Génére un nouvel identifiant unique pour idPizza
         SET @newIdPizza = CONCAT(p_idTypePizza, tailleID);
 
+        -- Instruction de débogage
+        SELECT @newIdPizza, prixFinal, tailleID, p_idTypePizza;
+
         INSERT INTO Pizza (idPizza, PrixPizza, idTaille, idTypePizza)
         VALUES (@newIdPizza, prixFinal, tailleID, p_idTypePizza);
     END LOOP;
@@ -46,22 +50,14 @@ BEGIN
     -- Close the cursor
     CLOSE taille_cursor;
 END //
+
 DELIMITER ;
 
--- Procédure stockée qui permet de suivre le chiffre d'affaire
-DELIMITER //
-CREATE PROCEDURE chiffreAffaires()
-BEGIN
-    SELECT SUM(PrixPizza) AS chiffre_affaires
-    FROM Commande
-    JOIN Pizza ON Commande.idPizza = Pizza.idPizza
-    WHERE statutCommande = 'Livrée';
-END //
-DELIMITER ;
 
 /* Procédure stockée qui permet de retourner le meilleur client 
 en se basant sur le montant depense et le nombre de commande passé */
 DELIMITER //
+
 CREATE PROCEDURE meilleurClient()
 BEGIN
     SELECT 
@@ -74,10 +70,12 @@ BEGIN
     JOIN Pizza ON Commande.idPizza = Pizza.idPizza
     WHERE Commande.statutCommande = 'Livrée'
     GROUP BY Client.idClient, Client.nomClient, Client.prenomClient
-    ORDER BY montant_total_depense DESC, nombre_commandes DESC
+    ORDER BY montant_total_depense DESC
     LIMIT 1;
 END //
+
 DELIMITER ;
+
 
 -- Procédure Stockée permet d'identifier la pizza la plus demandée
 DELIMITER //
@@ -87,6 +85,7 @@ BEGIN
         Pizza.idPizza, 
         TypePizza.nomPizza, 
         Taille.taille,
+        Pizza.PrixPizza,
         COUNT(Commande.numCommande) AS nombre_commandes
     FROM Commande
     JOIN Pizza ON Commande.idPizza = Pizza.idPizza
@@ -121,24 +120,34 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE ingredientFavori()
 BEGIN
-	SELECT I.nomIngredient, COUNT(S.idIngredient) AS nombre_utilisations
+	SELECT I.nomIngredient, COUNT(S.idIngredient) AS nombreUtilisations
 	FROM SeCompose S
 	JOIN Ingredients I ON S.idIngredient = I.idIngredient
 	GROUP BY I.nomIngredient
-	ORDER BY nombre_utilisations DESC
+	ORDER BY nombreUtilisations DESC
 	LIMIT 1;
 END //
 DELIMITER ;
 
 -- Procédure Stcokée permet d'identifier le plus mauvais livreur en se basant sur le nombre de retard
 DELIMITER //
-CREATE PROCEDURE PlusMauvaisLivreur()
+CREATE PROCEDURE PlusMauvaisLivreur_()
 BEGIN
     SELECT L.idLivreur, L.nomLivreur, L.prenomLivreur, L.nbRetard, U.numImmVehicule
     FROM Livreur L
     JOIN Utilise U ON L.idLivreur = U.idLivreur
     ORDER BY L.nbRetard DESC
     LIMIT 1;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE PlusMauvaisLivreur()
+BEGIN
+    SELECT *
+    FROM Livreur L
+    ORDER BY L.nbRetard DESC
+    Limit 1;
 END //
 DELIMITER ;
 
@@ -208,6 +217,7 @@ DELIMITER ;
 
 -- Procédure Stockée qui permet d'extraire des clients ayant commandé plus que la moyenne du prix des commandes livrées
 DELIMITER //
+
 CREATE PROCEDURE clientPlusMoyenneCommande()
 BEGIN
 WITH moyenneCommande AS (
@@ -223,5 +233,6 @@ JOIN Pizza P ON Co.idPizza = P.idPizza
 WHERE Co.statutCommande = 'livrée'
 GROUP BY Cl.idClient, Cl.nomClient, Cl.prenomClient
 HAVING SUM(P.PrixPizza) > (SELECT moyenne FROM moyenne_prix_commandes);
+
 DELIMITER ;
 
