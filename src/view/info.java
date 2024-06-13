@@ -160,13 +160,15 @@ public class info {
 		ingredientFavori.setBounds(414, 432, 230, 75);
 		frame.getContentPane().add(ingredientFavori);
 		
+		ArrayList<VEHICULE> vehicules = monModel.vehiculeNonUtilise();
+		
 		JButton vehiculeLibre = new JButton("Vehicule non utilise");
 		vehiculeLibre.setForeground(new Color(70, 114, 196));
 		vehiculeLibre.setFont(new Font("Arial", Font.PLAIN, 16));
 		vehiculeLibre.setBackground(new Color(255, 255, 255));
 		vehiculeLibre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<VEHICULE> vehicules = monModel.vehiculeNonUtilise();
+				affichage.setText("");
                 if (!vehicules.isEmpty()) {
                     StringBuilder sb = new StringBuilder("Véhicules non utilisés : ");
                     for (VEHICULE vehicule : vehicules) {
