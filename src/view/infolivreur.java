@@ -39,6 +39,7 @@ public class infolivreur {
 	 */
 	public infolivreur() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class infolivreur {
 		JButton precedent = new JButton("Precedent");
 		precedent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
 			}
 		});
 		precedent.setHorizontalAlignment(SwingConstants.CENTER);

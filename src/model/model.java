@@ -25,10 +25,10 @@ public class model {
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
 		
-		String BDD = "rapizz";
-		String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
+		String BDD = "pizza";
+		String url = "jdbc:mysql://localhost:3306/"+BDD;
 		String user = "root";
-		String passwd = "manardehmani2003";
+		String passwd = "";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

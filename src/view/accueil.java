@@ -42,6 +42,7 @@ public class accueil {
 	 */
 	public accueil() {
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class accueil {
 		infoPizzeria.setForeground(new Color(70, 114, 196));
 		infoPizzeria.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				info vca = new info();
 			}
 		});
 
@@ -76,7 +77,7 @@ public class accueil {
 		JButton infoClient = new JButton("Informations client");
 		infoClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				infoclient vca = new infoclient();
 			}
 		});
 		infoClient.setHorizontalAlignment(SwingConstants.CENTER);
@@ -89,7 +90,7 @@ public class accueil {
 		JButton infoLivreurs = new JButton("Informations Livreurs");
 		infoLivreurs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				infolivreur vca = new infolivreur();
 			}
 		});
 		infoLivreurs.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,7 +103,7 @@ public class accueil {
 		JButton menuClient = new JButton("Menu client");
 		menuClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				menu vca = new menu();
 			}
 		});
 		menuClient.setHorizontalAlignment(SwingConstants.CENTER);

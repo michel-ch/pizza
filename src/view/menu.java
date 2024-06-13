@@ -7,6 +7,9 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.SwingConstants;
+
+import controller.main;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -20,6 +23,7 @@ public class menu {
 	private JFrame frame;
 	private JTable table;
 	private model monModel;
+	private JTable menu;
 
 	/**
 	 * Launch the application.
@@ -43,6 +47,7 @@ public class menu {
 	public menu() {
 		monModel = new model();
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -53,62 +58,6 @@ public class menu {
 		frame.getContentPane().setBackground(new Color(70, 114, 196));
 		frame.getContentPane().setForeground(new Color(70, 114, 196));
 		frame.getContentPane().setLayout(null);
-		
-		JButton menu1 = new JButton("MENU 1");
-		menu1.setBackground(new Color(255, 255, 255));
-		menu1.setForeground(new Color(70, 114, 196));
-		menu1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		menu1.setFocusPainted(false);
-		menu1.setHorizontalAlignment(SwingConstants.CENTER);
-		menu1.setFont(new Font("Arial", Font.PLAIN, 12));
-		menu1.setBounds(58, 208, 165, 99);
-		frame.getContentPane().add(menu1);
-		
-		JButton menu2 = new JButton("MENU 2");
-		menu2.setBackground(new Color(255, 255, 255));
-		menu2.setFont(new Font("Arial", Font.PLAIN, 12));
-		menu2.setForeground(new Color(70, 114, 196));
-		menu2.setFocusPainted(false);
-		menu2.setHorizontalAlignment(SwingConstants.CENTER);
-		menu2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		menu2.setBounds(265, 208, 165, 99);
-		frame.getContentPane().add(menu2);
-		
-		JButton menu3 = new JButton("MENU 3");
-		menu3.setBackground(new Color(255, 255, 255));
-		menu3.setFont(new Font("Arial", Font.PLAIN, 12));
-		menu3.setFocusPainted(false);
-		menu3.setHorizontalAlignment(SwingConstants.CENTER);
-		menu3.setForeground(new Color(70, 114, 196));
-		menu3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			}
-		});
-		menu3.setBounds(58, 365, 165, 99);
-		frame.getContentPane().add(menu3);
-		
-		JButton menu4 = new JButton("MENU 4");
-		menu4.setBackground(new Color(255, 255, 255));
-		menu4.setFocusPainted(false);
-		menu4.setHorizontalAlignment(SwingConstants.CENTER);
-		menu4.setFont(new Font("Arial", Font.PLAIN, 12));
-		menu4.setForeground(new Color(70, 114, 196));
-		menu4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		menu4.setBounds(265, 365, 165, 99);
-		frame.getContentPane().add(menu4);
 		
 		table = new JTable();
 		table.setForeground(new Color(70, 114, 196));
@@ -164,7 +113,7 @@ public class menu {
 		precedent.setForeground(new Color(255, 255, 255));
 		precedent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				frame.setVisible(false);
 			}
 		});
 		precedent.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -177,6 +126,11 @@ public class menu {
 		affichage.setHorizontalAlignment(SwingConstants.CENTER);
 		affichage.setBounds(59, 23, 522, 56);
 		frame.getContentPane().add(affichage);
+		
+		menu = new JTable();
+		menu.setForeground(new Color(70, 114, 196));
+		menu.setBounds(59, 106, 417, 369);
+		frame.getContentPane().add(menu);
 		
 		frame.setBounds(100, 100, 900, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
