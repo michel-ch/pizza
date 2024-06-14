@@ -159,6 +159,12 @@ public class accueil {
 		list.setBounds(371, 61, 475, 462);
 		frame.getContentPane().add(list);
 		
+		JLabel lblCommandesEnCours = new JLabel("Commandes en cours");
+		lblCommandesEnCours.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCommandesEnCours.setFont(new Font("Broadway", Font.PLAIN, 20));
+		lblCommandesEnCours.setBounds(466, 11, 290, 49);
+		frame.getContentPane().add(lblCommandesEnCours);
+		
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask() {
 			@Override

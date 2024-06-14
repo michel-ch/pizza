@@ -121,7 +121,7 @@ public class menu {
             	affichage.setText("");
             	String pizza = main.getM().getMenuItems().get(menu.getSelectedRow());
     			String[] parts = pizza.split(" - ");
-            	if(menu.getSelectedRow()!= -1 || !idclient.getText().isEmpty()) {
+            	if(menu.getSelectedRow()!= -1 && !idclient.getText().isEmpty()) {
             		try {
             			String idpizza = parts[0];
             			String pre_prix = parts[3];
