@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2024 at 05:47 PM
+-- Generation Time: Jun 15, 2024 at 12:53 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -130,11 +130,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `moyenneCommande` ()   BEGIN
 	WHERE Co.statutCommande = 'Livrée';
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `nbCommandeParClient` ()   BEGIN
-	SELECT Cl.idClient, Cl.nomClient, Cl.prenomClient, COUNT(Co.numCommande) AS nombre_commandes
-	FROM Client Cl
-	LEFT JOIN Commande Co ON Cl.idClient = Co.idClient
-	GROUP BY Cl.idClient, Cl.nomClient, Cl.prenomClient;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `nbCommandeParClient` (IN `idClient` INT)   BEGIN
+    SELECT COUNT(Co.numCommande) AS nombre_commandes
+    FROM Client Cl
+    LEFT JOIN Commande Co ON Cl.idClient = Co.idClient
+    WHERE Cl.idClient = idClient
+    GROUP BY Cl.idClient, Cl.nomClient, Cl.prenomClient;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PizzaMoinsDemandee` ()   BEGIN
@@ -216,7 +217,7 @@ INSERT INTO `client` (`idClient`, `nomClient`, `prenomClient`, `adresseClient`, 
 (1, 'Derrez', 'Jonathan', '35 Rue Maurice Bécanne', 'jonathan.derrez@gmail.com', '0654321890', '200.99'),
 (2, 'Gregorie', 'Paul', '4 Avue du Régiment', 'paul.gregorie@gmail.com', '0612345698', '24.56'),
 (3, 'DEHMANI', 'Manar', '4 Avenue de Buisson', 'manar.dehmani@gamil.com', '0678912345', '127.45'),
-(4, 'Moreau', 'David', '2 Boulevard de la Mer', 'david.moreau@gamil.com', '0634567890', '38.77'),
+(4, 'Moreau', 'David', '2 Boulevard de la Mer', 'david.moreau@gamil.com', '0634567890', '60.78'),
 (6, 'CHEBLI', 'Wiem', '10 Place de la Liberté', 'wiem.chebli@gmail.com', '0687654321', '5.20'),
 (7, 'Roux', 'Elise', '8 Place de la République', 'elise.roux@gmail.com', '0701658921', '70.32'),
 (8, 'Poiteaux', 'Justine', '2 Rue de la mairie', 'justine.poiteaux@gmail.com', '0647214300', '0.00'),
@@ -676,7 +677,7 @@ ALTER TABLE `vehicule`
 -- AUTO_INCREMENT for table `commande`
 --
 ALTER TABLE `commande`
-  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables

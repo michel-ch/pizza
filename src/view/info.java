@@ -19,8 +19,6 @@ import model.VEHICULE;
 import model.PIZZA;
 import model.INGREDIENTS;
 import model.COMMANDE;
-import model.TYPEPIZZA;
-import model.TAILLE;
 
 
 
@@ -77,7 +75,7 @@ public class info {
 		precedent.setBounds(706, 38, 124, 37);
 		frame.getContentPane().add(precedent);
 		
-		JLabel affichage = new JLabel("LABEL");
+		JLabel affichage = new JLabel("");
 		affichage.setOpaque(true);
 		affichage.setBackground(new Color(255, 255, 255));
 		affichage.setHorizontalAlignment(SwingConstants.CENTER);

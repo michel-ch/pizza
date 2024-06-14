@@ -57,6 +57,7 @@ public class LIVREUR {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.numeroTelephone = numeroTelephone;
+		this.nombreRetard = 0;
 		listecommandes = new ArrayList<COMMANDE>();
 	}
 	

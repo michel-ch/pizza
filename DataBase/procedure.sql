@@ -196,12 +196,13 @@ DELIMITER ;
 
 -- Procédure Stcokée permet de calculer le nombre de commande par client 
 DELIMITER //
-CREATE PROCEDURE nbCommandeParClient()
+CREATE PROCEDURE nbCommandeParClient(IN idClient INT)
 BEGIN
-	SELECT Cl.idClient, Cl.nomClient, Cl.prenomClient, COUNT(Co.numCommande) AS nombre_commandes
-	FROM Client Cl
-	LEFT JOIN Commande Co ON Cl.idClient = Co.idClient
-	GROUP BY Cl.idClient, Cl.nomClient, Cl.prenomClient;
+    SELECT Cl.idClient, Cl.nomClient, Cl.prenomClient, COUNT(Co.numCommande) AS nombre_commandes
+    FROM Client Cl
+    LEFT JOIN Commande Co ON Cl.idClient = Co.idClient
+    WHERE Cl.idClient = idClient
+    GROUP BY Cl.idClient, Cl.nomClient, Cl.prenomClient;
 END //
 DELIMITER ;
 

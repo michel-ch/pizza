@@ -49,12 +49,13 @@ VALUES  ('I1', 'Tomate'),
         ('I13','Sauce Blanche'),
         ('I14','Sauce Tomate');
 -- Insertion dans table TypePizza
-CALL insertTypePizza('Type1', 'Margherita', 9.50);
-CALL insertTypePizza('Type2', 'Pepperoni', 10.75);
-CALL insertTypePizza('Type3', 'Cannibale', 12.35);
-CALL insertTypePizza('Type4', 'Végétarienne', 13.80);
-CALL insertTypePizza('Type5', 'Indienne', 10.99);
-CALL insertTypePizza('Type6', 'Spéciale Champis', 10.99);
+INSERT INTO TypePizza (idTypePizza, nomPizza, prixBase) VALUES
+('Type1', 'Margherita', 9.50),
+('Type2', 'Pepperoni', 10.75),
+('Type3', 'Cannibale', 12.35),
+('Type4', 'Végétarienne', 13.80),
+('Type5', 'Indienne', 10.99),
+('Type6', 'Spéciale Champis', 10.99);
 -- Insertion dans la table se_compose
 INSERT INTO  SeCompose (idTypePizza, idIngredient) VALUES 
 ('Type1', 'I14'), ('Type1','I2'),
