@@ -166,9 +166,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE menu()
 BEGIN
-	SELECT TP.nomPizza, P.PrixPizza, GROUP_CONCAT(I.nomIngredient SEPARATOR ', ') AS ingredients
+	SELECT P.idPizza, TP.nomPizza, T.taille ,P.PrixPizza, GROUP_CONCAT(I.nomIngredient SEPARATOR ', ') AS ingredients
 	FROM Pizza P
 	JOIN TypePizza TP ON P.idTypePizza = TP.idTypePizza
+	JOIN Taille T ON P.idTaille = T.idTaille
 	JOIN SeCompose S ON TP.idTypePizza = S.idTypePizza
 	JOIN Ingredients I ON S.idIngredient = I.idIngredient
 	GROUP BY TP.nomPizza, P.PrixPizza;

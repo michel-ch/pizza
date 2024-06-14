@@ -8,17 +8,21 @@ import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import controller.main;
 import model.model;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
 
 public class menu {
 
     private JFrame frame;
-    private JTable table;
-    private model monModel;
     private JTable menu;
+    private JTextField idclient;
 
     /**
      * Launch the application.
@@ -40,7 +44,6 @@ public class menu {
      * Create the application.
      */
     public menu() {
-        monModel = new model();
         initialize();
         frame.setVisible(true);
     }
@@ -53,53 +56,23 @@ public class menu {
         frame.getContentPane().setBackground(new Color(70, 114, 196));
         frame.getContentPane().setForeground(new Color(70, 114, 196));
         frame.getContentPane().setLayout(null);
-
-        table = new JTable();
-        table.setForeground(new Color(70, 114, 196));
-        table.setBounds(533, 170, 279, 305);
-        frame.getContentPane().add(table);
-
-        JButton supprimer = new JButton("Supprimer");
-        supprimer.setBackground(new Color(255, 255, 255));
-        supprimer.setFont(new Font("Arial", Font.PLAIN, 12));
-        supprimer.setForeground(new Color(70, 114, 196));
-        supprimer.setFocusPainted(false);
-        supprimer.setHorizontalAlignment(SwingConstants.CENTER);
-        supprimer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Implement delete functionality here
-            }
-        });
-        supprimer.setBounds(534, 106, 124, 37);
-        frame.getContentPane().add(supprimer);
-
-        JButton retirer = new JButton("Ajouter");
-        retirer.setBackground(new Color(255, 255, 255));
-        retirer.setFont(new Font("Arial", Font.PLAIN, 12));
-        retirer.setFocusPainted(false);
-        retirer.setHorizontalAlignment(SwingConstants.CENTER);
-        retirer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Implement add functionality here
-            }
-        });
-        retirer.setForeground(new Color(70, 114, 196));
-        retirer.setBounds(688, 106, 124, 37);
-        frame.getContentPane().add(retirer);
-
-        JButton valider = new JButton("Validation");
-        valider.setBackground(new Color(255, 255, 255));
-        valider.setFont(new Font("Arial", Font.PLAIN, 12));
-        valider.setFocusPainted(false);
-        valider.setHorizontalAlignment(SwingConstants.CENTER);
-        valider.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Implement validation functionality here
-            }
-        });
-        valider.setForeground(new Color(70, 114, 196));
-        valider.setBounds(595, 499, 165, 37);
-        frame.getContentPane().add(valider);
+        
+        idclient = new JTextField();
+        idclient.setBounds(595, 175, 233, 52);
+        frame.getContentPane().add(idclient);
+        idclient.setColumns(10);
+        
+        JLabel label = new JLabel("Veuillez saisir votre identifiant client :");
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        label.setForeground(new Color(255, 255, 255));
+        label.setBounds(595, 123, 233, 41);
+        frame.getContentPane().add(label);
+        
+        JLabel affichage = new JLabel("");
+        affichage.setHorizontalAlignment(SwingConstants.CENTER);
+        affichage.setFont(new Font("Arial", Font.BOLD, 14));
+        affichage.setBounds(578, 360, 279, 138);
+        frame.getContentPane().add(affichage);
 
         JButton precedent = new JButton("Precedent");
         precedent.setBackground(new Color(189, 208, 233));
@@ -114,42 +87,62 @@ public class menu {
         precedent.setFont(new Font("Arial", Font.PLAIN, 12));
         precedent.setBounds(688, 23, 124, 37);
         frame.getContentPane().add(precedent);
-
-        // Add the afficherMenu button
-        JButton afficherMenu = new JButton("Afficher Menu");
-        afficherMenu.setBackground(new Color(255, 255, 255));
-        afficherMenu.setFont(new Font("Arial", Font.PLAIN, 12));
-        afficherMenu.setFocusPainted(false);
-        afficherMenu.setHorizontalAlignment(SwingConstants.CENTER);
-        afficherMenu.setForeground(new Color(70, 114, 196));
-        afficherMenu.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loadMenuData(); 
-            }
-        });
-        afficherMenu.setBounds(59, 499, 165, 37);
-        frame.getContentPane().add(afficherMenu);
-
-        menu = new JTable();
+        
+        DefaultTableModel tableModel = new DefaultTableModel(){
+			public boolean isCellEditable(int i, int i1) {
+		        return false; //To change body of generated methods, choose Tools | Templates.
+		    }
+		};
+		menu = new JTable(tableModel);
+		tableModel.addColumn("");
         menu.setForeground(new Color(70, 114, 196));
+        menu.setFont(new Font("Arial", Font.PLAIN, 12));
         menu.setBounds(20, 40, 490, 430);
         frame.getContentPane().add(menu);
 
         frame.setBounds(100, 100, 900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menu.removeAll();
+        tableModel.getDataVector().removeAllElements();
+        
+		for (int i=0;i!= main.getM().getMenuItems().size();i++) {
+			String pizza = main.getM().getMenuItems().get(i);
+			Object[] data = {pizza};
+			tableModel.addRow(data);
+		}
+		
+		JButton valider = new JButton("Validation");
+        valider.setBackground(new Color(255, 255, 255));
+        valider.setFont(new Font("Arial", Font.PLAIN, 12));
+        valider.setFocusPainted(false);
+        valider.setHorizontalAlignment(SwingConstants.CENTER);
+        valider.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	affichage.setText("");
+            	String pizza = main.getM().getMenuItems().get(menu.getSelectedRow());
+    			String[] parts = pizza.split(" - ");
+            	if(menu.getSelectedRow()!= -1 && !idclient.getText().isEmpty()) {
+            		try {
+            			String idpizza = parts[0];
+            			String pre_prix = parts[3];
+            			pre_prix = pre_prix.substring(0, pre_prix.length()-1);
+            			float prix = Float.parseFloat(pre_prix);
+						String a = main.getM().insertCommande(Integer.parseInt(idclient.getText()), idpizza, prix);
+						affichage.setText(a);
+					} catch (NumberFormatException | SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						System.out.println("INSERT ERROR");
+					}
+            	}
+            	else {
+            		affichage.setText("<html>Veuillez saisir une pizza <br>et votre identifiant !</html>");
+            	}
+            	menu.clearSelection();
+            }
+        });
+        valider.setForeground(new Color(70, 114, 196));
+        valider.setBounds(633, 291, 165, 37);
+        frame.getContentPane().add(valider);
     }
-    
-    private void loadMenuData() {
-        ArrayList<String> menuItems = monModel.menu(); 
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Menu Item");
-        model.addRow(new Object[] { "Voici notre carte :" });
-        for (String item : menuItems) {
-            model.addRow(new Object[]{item});
-        }
-        menu.setModel(model);
-    }
-
-   
-   
 }

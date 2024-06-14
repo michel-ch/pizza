@@ -80,15 +80,25 @@ INSERT INTO Client (idClient, nomClient, prenomClient, adresseClient, emailClien
 (9, 'Robert', 'Martine', '35 Avenue Artiside Briand', 'martine.robert@gmail.com', '0725543210', 43.15);
 
 -- Insertion dans la table Pizza
-INSERT INTO Pizza (idPizza, PrixPizza, idTypePizza, idTaille)
-VALUES
-('Type1T1', 9.50, 'Type1', 'T1'),
-('Type1T2', 6.65, 'Type1', 'T2'),
-('Type2T2', 7.53, 'Type2', 'T2'),
-('Type3T3', 16.06, 'Type3', 'T3'),
-('Type4T2', 17.94, 'Type4', 'T2'),
-('Type5T1', 10.99, 'Type5', 'T1'),
-('Type6T3', 14.29, 'Type6', 'T3');
+INSERT INTO Pizza (idPizza, PrixPizza, idTaille, idTypePizza) VALUES 
+('Type1T1', 6.65, 'T1', 'Type1'),
+('Type1T2', 9.50, 'T2', 'Type1'),
+('Type1T3', 12.35, 'T3', 'Type1'),
+('Type2T1', 7.53, 'T1', 'Type2'),
+('Type2T2', 10.75, 'T2', 'Type2'),
+('Type2T3', 13.98, 'T3', 'Type2'),
+('Type3T1', 8.65, 'T1', 'Type3'),
+('Type3T2', 12.35, 'T2', 'Type3'),
+('Type3T3', 16.06, 'T3', 'Type3'),
+('Type4T1', 9.66, 'T1', 'Type4'),
+('Type4T2', 13.80, 'T2', 'Type4'),
+('Type4T3', 17.94, 'T3', 'Type4'),
+('Type5T1', 7.69, 'T1', 'Type5'),
+('Type5T2', 10.99, 'T2', 'Type5'),
+('Type5T3', 14.29, 'T3', 'Type5'),
+('Type6T1', 7.69, 'T1', 'Type6'),
+('Type6T2', 10.99, 'T2', 'Type6'),
+('Type6T3', 14.29, 'T3', 'Type6');
 
 -- Insertion des commandes dans la table Commande
 -- Insérer les commandes en vérifiant les règles des triggers

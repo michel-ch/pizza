@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2024 at 11:37 PM
+-- Generation Time: Jun 14, 2024 at 05:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -114,9 +114,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `meilleurClient` ()   BEGIN
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `menu` ()   BEGIN
-	SELECT TP.nomPizza, P.PrixPizza, GROUP_CONCAT(I.nomIngredient SEPARATOR ', ') AS ingredients
+	SELECT P.idPizza, TP.nomPizza, T.taille ,P.PrixPizza, GROUP_CONCAT(I.nomIngredient SEPARATOR ', ') AS ingredients
 	FROM Pizza P
 	JOIN TypePizza TP ON P.idTypePizza = TP.idTypePizza
+	JOIN Taille T ON P.idTaille = T.idTaille
 	JOIN SeCompose S ON TP.idTypePizza = S.idTypePizza
 	JOIN Ingredients I ON S.idIngredient = I.idIngredient
 	GROUP BY TP.nomPizza, P.PrixPizza;
@@ -215,7 +216,7 @@ INSERT INTO `client` (`idClient`, `nomClient`, `prenomClient`, `adresseClient`, 
 (1, 'Derrez', 'Jonathan', '35 Rue Maurice Bécanne', 'jonathan.derrez@gmail.com', '0654321890', '200.99'),
 (2, 'Gregorie', 'Paul', '4 Avue du Régiment', 'paul.gregorie@gmail.com', '0612345698', '24.56'),
 (3, 'DEHMANI', 'Manar', '4 Avenue de Buisson', 'manar.dehmani@gamil.com', '0678912345', '127.45'),
-(4, 'Moreau', 'David', '2 Boulevard de la Mer', 'david.moreau@gamil.com', '0634567890', '60.78'),
+(4, 'Moreau', 'David', '2 Boulevard de la Mer', 'david.moreau@gamil.com', '0634567890', '38.77'),
 (6, 'CHEBLI', 'Wiem', '10 Place de la Liberté', 'wiem.chebli@gmail.com', '0687654321', '5.20'),
 (7, 'Roux', 'Elise', '8 Place de la République', 'elise.roux@gmail.com', '0701658921', '70.32'),
 (8, 'Poiteaux', 'Justine', '2 Rue de la mairie', 'justine.poiteaux@gmail.com', '0647214300', '0.00'),
@@ -436,12 +437,23 @@ CREATE TABLE `pizza` (
 --
 
 INSERT INTO `pizza` (`idPizza`, `PrixPizza`, `idTaille`, `idTypePizza`) VALUES
-('Type1T1', '9.50', 'T1', 'Type1'),
-('Type1T2', '6.65', 'T2', 'Type1'),
-('Type2T2', '7.53', 'T2', 'Type2'),
+('Type1T1', '6.65', 'T1', 'Type1'),
+('Type1T2', '9.50', 'T2', 'Type1'),
+('Type1T3', '12.35', 'T3', 'Type1'),
+('Type2T1', '7.53', 'T1', 'Type2'),
+('Type2T2', '10.75', 'T2', 'Type2'),
+('Type2T3', '13.98', 'T3', 'Type2'),
+('Type3T1', '8.65', 'T1', 'Type3'),
+('Type3T2', '12.35', 'T2', 'Type3'),
 ('Type3T3', '16.06', 'T3', 'Type3'),
-('Type4T2', '17.94', 'T2', 'Type4'),
-('Type5T1', '10.99', 'T1', 'Type5'),
+('Type4T1', '9.66', 'T1', 'Type4'),
+('Type4T2', '13.80', 'T2', 'Type4'),
+('Type4T3', '17.94', 'T3', 'Type4'),
+('Type5T1', '7.69', 'T1', 'Type5'),
+('Type5T2', '10.99', 'T2', 'Type5'),
+('Type5T3', '14.29', 'T3', 'Type5'),
+('Type6T1', '7.69', 'T1', 'Type6'),
+('Type6T2', '10.99', 'T2', 'Type6'),
 ('Type6T3', '14.29', 'T3', 'Type6');
 
 -- --------------------------------------------------------
@@ -655,6 +667,16 @@ ALTER TABLE `utilise`
 --
 ALTER TABLE `vehicule`
   ADD PRIMARY KEY (`numImmVehicule`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `commande`
+--
+ALTER TABLE `commande`
+  MODIFY `numCommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

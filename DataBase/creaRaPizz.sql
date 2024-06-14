@@ -58,7 +58,7 @@ CREATE TABLE Pizza(
 );
 
 CREATE TABLE Commande(
-   numCommande INT,
+   numCommande INT AUTO_INCREMENT,
    dateCommande DATETIME,
    statutCommande VARCHAR(10),
    adresseLivraison VARCHAR(50),

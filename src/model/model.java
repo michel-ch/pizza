@@ -16,6 +16,7 @@ public class model {
 	private ArrayList <PIZZA> listepizza;
 	private ArrayList <INGREDIENTS> listeingredients;
 	private ArrayList <COMMANDE> listecommande;
+	private ArrayList<String> menuItems;
 	
 	public model() {
 		listeclient = new ArrayList<CLIENT> ();
@@ -24,13 +25,14 @@ public class model {
 		listepizza = new ArrayList<PIZZA> ();
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
+		menuItems = new ArrayList<>();
 		
-		//String BDD = "pizza";
-		//String url = "jdbc:mysql://localhost:3306/"+BDD;
-		String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
+		String BDD = "pizza";
+		String url = "jdbc:mysql://localhost:3306/"+BDD;
+		//String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
 		String user = "root";
-		//String passwd = "";
-		String passwd = "manardehmani2003";
+		String passwd = "";
+		//String passwd = "manardehmani2003";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -91,7 +93,13 @@ public class model {
 	public void setCon(Connection con) {
 		this.con = con;
 	}
-	
+	public ArrayList<String> getMenuItems() {
+		return menuItems;
+	}
+	public void setMenuItems(ArrayList<String> menuItems) {
+		this.menuItems = menuItems;
+	}
+
 	//	To init the model
 	public void getAll() throws SQLException {
 		listeclient.clear();
@@ -107,12 +115,12 @@ public class model {
 		listepizza = new ArrayList<PIZZA> ();
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
+		menuItems = new ArrayList<>();
 		
 		ResultSet resultats;
 		String requete;
 		
-		
-		
+		menu();
 	}
 	
 	// 
@@ -220,12 +228,12 @@ public class model {
     }
     
     public ArrayList<String> menu() {
-        ArrayList<String> menuItems = new ArrayList<>();
+        menuItems.clear();
         String requete = "CALL menu()";
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(requete);
             while (rs.next()) {
-                String menuItem = rs.getString("nomPizza") + " - " +rs.getString("taille")+" - "+rs.getDouble("PrixPizza") + "€ - Ingrédients: " + rs.getString("ingredients");
+                String menuItem = rs.getString("idPizza")+" - "+ rs.getString("nomPizza") + " - " +rs.getString("taille")+" - "+rs.getDouble("PrixPizza") + "€ - Ingrédients: " + rs.getString("ingredients");
                 menuItems.add(menuItem);
             }
         } catch (SQLException e) {
@@ -303,6 +311,36 @@ public class model {
 		return null;
 	}
 	
+	public String insertCommande(int idclient, String pizza, float prix) throws SQLException {
+		Statement command = con.createStatement();
+		ResultSet resultats;
+		String requete;
+		try{
+			requete = "SELECT client.SoldeCompte FROM `client` WHERE client.idClient= '"+ idclient +"'";
+			Statement stmt = con.createStatement();
+			resultats = stmt.executeQuery(requete);
+			if(resultats.next()) {
+				if(prix<=resultats.getFloat(1)) {
+					command.execute("INSERT INTO `commande` (`dateCommande`, `statutCommande`, `adresseLivraison`,`idPizza`, `idLivreur`, `idClient`) VALUES ( NOW(), 'En cours', (SELECT `adresseClient` FROM `client` WHERE `idClient` = '1'), '"+ pizza +"', (SELECT `idLivreur` FROM `livreur` WHERE `idLivreur` NOT IN ( SELECT DISTINCT c.`idLivreur` FROM `commande` as c WHERE c.`statutCommande` = 'En cours') LIMIT 1),"+idclient+ ");");
+					float nouveau_solde =  resultats.getFloat(1)-prix;
+					command.execute("UPDATE `client` SET `SoldeCompte` = '"+nouveau_solde+"' WHERE `client`.`idClient` = "+ idclient +";");
+					return "<html>Votre pizza est commandee !</html>";
+				}
+				else {
+					return "Votre solde est insuffisant";
+				}
+			}
+			else {
+				System.out.println("Echec a la verification du solde");
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Insert bug");
+			System.out.println(e.toString());
+		}
+		return "";
+	}
 	
 	
 	
