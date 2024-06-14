@@ -25,10 +25,12 @@ public class model {
 		listeingredients = new ArrayList<INGREDIENTS> ();
 		listecommande = new ArrayList<COMMANDE> ();
 		
-		String BDD = "pizza";
-		String url = "jdbc:mysql://localhost:3306/"+BDD;
+		//String BDD = "pizza";
+		//String url = "jdbc:mysql://localhost:3306/"+BDD;
+		String url = "jdbc:mysql://localhost:3306/rapizz?characterEncoding=UTF-8";
 		String user = "root";
-		String passwd = "";
+		//String passwd = "";
+		String passwd = "manardehmani2003";
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -223,7 +225,7 @@ public class model {
         try (Statement stmt = con.createStatement()) {
             ResultSet rs = stmt.executeQuery(requete);
             while (rs.next()) {
-                String menuItem = rs.getString("nomPizza") + " - " + rs.getDouble("PrixPizza") + "€ - Ingrédients: " + rs.getString("ingredients");
+                String menuItem = rs.getString("nomPizza") + " - " +rs.getString("taille")+" - "+rs.getDouble("PrixPizza") + "€ - Ingrédients: " + rs.getString("ingredients");
                 menuItems.add(menuItem);
             }
         } catch (SQLException e) {

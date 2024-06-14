@@ -103,7 +103,7 @@ public class accueil {
 		JButton menuClient = new JButton("Menu client");
 		menuClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				menu vca = new menu();
+				menu vca = new menu();		
 			}
 		});
 		menuClient.setHorizontalAlignment(SwingConstants.CENTER);
