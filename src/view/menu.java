@@ -119,27 +119,32 @@ public class menu {
         valider.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	affichage.setText("");
-            	String pizza = main.getM().getMenuItems().get(menu.getSelectedRow());
-    			String[] parts = pizza.split(" - ");
-            	if(menu.getSelectedRow()!= -1 && !idclient.getText().isEmpty()) {
-            		try {
-            			String idpizza = parts[0];
-            			String pre_prix = parts[3];
-            			pre_prix = pre_prix.substring(0, pre_prix.length()-1);
-            			float prix = Float.parseFloat(pre_prix);
-						String a = main.getM().insertCommande(Integer.parseInt(idclient.getText()), idpizza, prix);
-						affichage.setText(a);
-						main.getM().getAll();
-					} catch (NumberFormatException | SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						System.out.println("INSERT ERROR");
-					}
+            	if(menu.getSelectedRow()!=-1) {
+            		String pizza = main.getM().getMenuItems().get(menu.getSelectedRow());
+        			String[] parts = pizza.split(" - ");
+                	if(menu.getSelectedRow()!= -1 && !idclient.getText().isEmpty()) {
+                		try {
+                			String idpizza = parts[0];
+                			String pre_prix = parts[3];
+                			pre_prix = pre_prix.substring(0, pre_prix.length()-1);
+                			float prix = Float.parseFloat(pre_prix);
+    						String a = main.getM().insertCommande(Integer.parseInt(idclient.getText()), idpizza, prix);
+    						affichage.setText(a);
+    						main.getM().getAll();
+    					} catch (NumberFormatException | SQLException e1) {
+    						// TODO Auto-generated catch block
+    						e1.printStackTrace();
+    						System.out.println("INSERT ERROR");
+    					}
+                	}
+                	else {
+                		affichage.setText("<html>Veuillez saisir une pizza <br>et votre identifiant !</html>");
+                	}
+                	menu.clearSelection();
             	}
             	else {
             		affichage.setText("<html>Veuillez saisir une pizza <br>et votre identifiant !</html>");
             	}
-            	menu.clearSelection();
             }
         });
         valider.setForeground(new Color(70, 114, 196));
