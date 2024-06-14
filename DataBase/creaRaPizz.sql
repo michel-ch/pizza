@@ -1,5 +1,5 @@
-create database if not exists Rapizz ;
-use Rapizz ;
+create database if not exists pizza ;
+use pizza ;
 
 CREATE TABLE TypePizza(
    idTypePizza VARCHAR(15),
